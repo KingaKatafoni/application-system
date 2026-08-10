@@ -14,6 +14,8 @@ public class ApplicationRepository {
             new Application(3L, "Maria Wisniewska", "MELDUNEK", "ZAKONCZONY")
     ));
 
+    private Long nextId = 4L;
+
     public List<Application> findAll(){
         return applications;
     }
@@ -29,5 +31,26 @@ public class ApplicationRepository {
        return applications.stream()
                 .filter(a -> a.getType().equals(type))
                 .toList();
+   }
+
+   public Application save(Application application){
+        application.setId(nextId++);
+        applications.add(application);
+        return application;
+   }
+
+   public boolean deleteById(Long id){
+        return applications.removeIf(a -> a.getId().equals(id));
+   }
+
+   public Application update(Long id, Application updated){
+        Application existing = findById(id);
+        if(existing == null){
+            return null;
+        }
+        existing.setApplicantName(updated.getApplicantName());
+        existing.setType(updated.getType());
+        existing.setStatus(updated.getStatus());
+        return existing;
    }
 }

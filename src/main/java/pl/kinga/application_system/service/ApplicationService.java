@@ -25,4 +25,17 @@ public class ApplicationService {
     public List<Application> getApplicationsByType(String type){
         return applicationRepository.findByType(type);
     }
+
+    public Application createApplication(Application application){
+        return applicationRepository.save(application);
+    }
+
+    public boolean deleteApplication(Long id){
+        return applicationRepository.deleteById(id);
+    }
+
+    public Application updateApplication(Long id, Application application){
+        return applicationRepository.update(id, application);
+    }
+
 }

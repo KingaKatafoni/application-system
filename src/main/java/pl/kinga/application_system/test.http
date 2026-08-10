@@ -1,0 +1,39 @@
+### Lista wnioskow
+GET http://localhost:8080/applications
+
+### Nowy wniosek
+POST http://localhost:8080/applications
+Content-Type: application/json
+
+{"applicantName":"Tomek Zielinski","type":"PASZPORT","status":"NOWY"}
+
+### Zmien status
+PUT http://localhost:8080/applications/1
+Content-Type: application/json
+
+{"applicantName":"Anna Nowak","type":"MELDUNEK","status":"ZAKONCZONY"}
+
+### Usun wniosek
+DELETE http://localhost:8080/applications/3
+
+### Sprawdz po zmianach
+GET http://localhost:8080/applications
+
+### Sprawdz gdy GET poza zakresem
+GET http://localhost:8080/applications/99
+
+### Sprawdz czy przy usuwaniu blad 404
+DELETE http://localhost:8080/applications/99
+
+###Sprawdz czy walidacja dziala gdy puste pola
+POST http://localhost:8080/applications
+Content-Type: application/json
+
+{"applicantName":"","type":"","status":""}
+
+###Sprawdz czy walidacja dziala gdy za krotkie imie
+POST http://localhost:8080/applications
+Content-Type: application/json
+
+{"applicantName":"A","type":"MELDUNEK","status":"NOWY"}
+
