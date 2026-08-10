@@ -13,4 +13,5 @@ d) Odpowiedz (1-2 zdania): co robi @SpringBootApplication?
 @SpringBootApplication to glowna adnotacja, a tak naprawde pod spodem 3 adnotacje ktore sie wykonuja
     -@SpringBootConfiguration -> konfiguracja Springa
     -@EnableAutoConfiguration -> wlacz autokonfiguracje
-    -@ComponentScan -> skanuje pakiet w poszukiwaniu beanow
+    -@ComponentScan -> skanuje paki
+et w poszukiwaniu beanow
