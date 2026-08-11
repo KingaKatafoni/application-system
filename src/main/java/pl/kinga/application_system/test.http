@@ -1,11 +1,29 @@
 ### Lista wnioskow
 GET http://localhost:8080/applications
 
+### Lista wnioskodawcow
+GET http://localhost:8080/applicants
+
+### Wnioskodawca id 1
+GET http://localhost:8080/applicants/1
+
 ### Nowy wniosek
 POST http://localhost:8080/applications
 Content-Type: application/json
 
 {"applicantName":"Tomek Zielinski","type":"PASZPORT","status":"NOWY"}
+
+### Nowy wnioskodawca
+POST http://localhost:8080/applicants
+Content-Type: application/json
+
+{"firstName":"Maria","lastName":"Wisniewska","email":"maria@email.pl"}
+
+### Nowy wniosek dla Marii
+POST http://localhost:8080/applicants/3/applications
+Content-Type: application/json
+
+{"type":"PASZPORT","status":"NOWY"}
 
 ### Zmien status
 PUT http://localhost:8080/applications/1

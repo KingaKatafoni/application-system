@@ -41,7 +41,6 @@ public class ApplicationService {
 
     public Optional<Application> updateApplication(Long id, Application updated) {
         return applicationRepository.findById(id).map(existing -> {
-            existing.setApplicantName(updated.getApplicantName());
             existing.setType(updated.getType());
             existing.setStatus(updated.getStatus());
             return applicationRepository.save(existing);
