@@ -22,6 +22,9 @@ GET http://localhost:8080/applications
 ### Sprawdz gdy GET poza zakresem
 GET http://localhost:8080/applications/99
 
+### Sprawdz gdy GET dla statusu NOWY
+GET http://localhost:8080/applications/status/NOWY
+
 ### Sprawdz czy przy usuwaniu blad 404
 DELETE http://localhost:8080/applications/99
 

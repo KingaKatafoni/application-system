@@ -5,6 +5,7 @@ import pl.kinga.application_system.model.Application;
 import pl.kinga.application_system.repository.ApplicationRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ApplicationService {
@@ -18,7 +19,7 @@ public class ApplicationService {
         return applicationRepository.findAll();
     }
 
-    public Application getApplicationById(Long id){
+    public Optional<Application> getApplicationById(Long id){
         return applicationRepository.findById(id);
     }
 
@@ -26,16 +27,25 @@ public class ApplicationService {
         return applicationRepository.findByType(type);
     }
 
+    public List<Application> getApplicationsByStatus(String status){
+        return applicationRepository.findByStatus(status);
+    }
+
     public Application createApplication(Application application){
         return applicationRepository.save(application);
     }
 
-    public boolean deleteApplication(Long id){
-        return applicationRepository.deleteById(id);
+    public void deleteApplication(Long id){
+        applicationRepository.deleteById(id);
     }
 
-    public Application updateApplication(Long id, Application application){
-        return applicationRepository.update(id, application);
+    public Optional<Application> updateApplication(Long id, Application updated) {
+        return applicationRepository.findById(id).map(existing -> {
+            existing.setApplicantName(updated.getApplicantName());
+            existing.setType(updated.getType());
+            existing.setStatus(updated.getStatus());
+            return applicationRepository.save(existing);
+        });
     }
 
 }

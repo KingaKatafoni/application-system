@@ -1,9 +1,17 @@
 package pl.kinga.application_system.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+@Entity
 public class Application {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "Imie wnioskodawcy nie moze byc puste")
@@ -16,13 +24,13 @@ public class Application {
     @NotBlank(message = "Status nie moze byc pusty")
     private String status;
 
-    public Application(Long id, String applicantName, String type, String status) {
-        this.id = id;
+    public Application(){}
+
+    public Application(String applicantName, String type, String status) {
         this.applicantName = applicantName;
         this.type = type;
         this.status = status;
     }
-    public Application(){}
 
     public Long getId() {
         return id;

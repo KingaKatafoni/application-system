@@ -23,16 +23,19 @@ public class ApplicationController {
 
     @GetMapping("/applications/{id}")
     public ResponseEntity<Application> getById(@PathVariable Long id){
-        Application app = service.getApplicationById(id);
-        if(app == null){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(app);
+       return service.getApplicationById(id)
+               .map(ResponseEntity::ok)
+               .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/applications/type/{type}")
     public List<Application> getByType(@PathVariable String type) {
         return service.getApplicationsByType(type);
+    }
+
+    @GetMapping("/applications/status/{status}")
+    public List<Application> getByStatus(@PathVariable String status){
+        return service.getApplicationsByStatus(status);
     }
 
     @PostMapping("/applications")
@@ -44,20 +47,19 @@ public class ApplicationController {
     @PutMapping("/applications/{id}")
     public ResponseEntity<Application> update(@PathVariable Long id,
                                               @Valid @RequestBody Application application) {
-        Application updated = service.updateApplication(id, application);
-        if (updated == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(updated);
+        return service.updateApplication(id, application)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/applications/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
-        boolean deleted = service.deleteApplication(id);
-        if(deleted) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
+       if(!service.getAllApplications().stream()
+               .anyMatch(a-> a.getId().equals(id))){
+           return ResponseEntity.notFound().build();
+       }
+       service.deleteApplication(id);
+       return ResponseEntity.noContent().build();
     }
 
 }
