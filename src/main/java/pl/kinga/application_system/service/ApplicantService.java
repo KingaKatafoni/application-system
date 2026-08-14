@@ -1,5 +1,7 @@
 package pl.kinga.application_system.service;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import org.springframework.stereotype.Service;
 import pl.kinga.application_system.model.Applicant;
 import pl.kinga.application_system.model.Application;
@@ -14,6 +16,17 @@ public class ApplicantService {
 
   public ApplicantService(ApplicantRepository applicantRepository){
       this.applicantRepository = applicantRepository;
+  }
+
+  @PostConstruct
+  public void init(){
+      System.out.println("Service is already started!");
+      System.out.println("Amount of Applicants: " + applicantRepository.count());
+  }
+
+  @PreDestroy
+  public void cleanUp(){
+      System.out.println("Service is shutting down!");
   }
 
   public List<Applicant> getAllApplicants(){

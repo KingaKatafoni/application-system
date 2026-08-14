@@ -19,6 +19,12 @@ Content-Type: application/json
 
 {"firstName":"Maria","lastName":"Wisniewska","email":"maria@email.pl"}
 
+### Nowy wnioskodawca puste dane
+POST http://localhost:8080/applicants
+Content-Type: application/json
+
+{"firstName":"","lastName":"","email":""}
+
 ### Nowy wniosek dla Marii
 POST http://localhost:8080/applicants/3/applications
 Content-Type: application/json
@@ -58,3 +64,23 @@ Content-Type: application/json
 
 {"applicantName":"A","type":"MELDUNEK","status":"NOWY"}
 
+### Sprawdzenie Health
+GET http://localhost:8080/actuator/health
+
+###Sprawdzenie Info
+GET http://localhost:8080/actuator/info
+
+###Sprawdzenie Metrics
+GET http://localhost:8080/actuator/metrics
+
+###Sprawdzenie Metrics z nazwa
+GET http://localhost:8080/actuator/metrics/jvm.memory.used
+
+###Sprawdzenie Metrics z server.request
+GET http://localhost:8080/actuator/metrics/http.server.requests
+
+###Sprawdzenie jakie Beany w Springu
+GET http://localhost:8080/actuator/beans
+
+###Sprawdzenie jakie mappingi
+GET http://localhost:8080/actuator/mappings
