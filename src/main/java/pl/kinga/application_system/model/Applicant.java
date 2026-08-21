@@ -27,6 +27,11 @@ public class Applicant {
     @JsonManagedReference
     private List<Application> applications = new ArrayList<>();
 
+
+    @OneToMany(mappedBy = "applicant", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Visit> visits = new ArrayList<>();
+
     public Applicant(){}
 
     public Applicant(String firstName, String lastName, String email){
@@ -73,5 +78,13 @@ public class Applicant {
 
     public void setApplications(List<Application> applications) {
         this.applications = applications;
+    }
+
+    public List<Visit> getVisits() {
+        return visits;
+    }
+
+    public void setVisits(List<Visit> visits) {
+        this.visits = visits;
     }
 }

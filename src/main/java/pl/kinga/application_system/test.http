@@ -84,3 +84,68 @@ GET http://localhost:8080/actuator/beans
 
 ###Sprawdzenie jakie mappingi
 GET http://localhost:8080/actuator/mappings
+
+###Sprawdzanie password z logow
+GET http://localhost:8080/applicants
+Authorization: Basic user b93e8a42-c162-47f9-8043-9b93080ff648
+
+### Scenariusz 1: GET bez logowania — powinno dzialac
+GET http://localhost:8080/applicants
+
+### Scenariusz 2: POST bez logowania — powinno odrzucic
+POST http://localhost:8080/applicants
+Content-Type: application/json
+
+{"firstName":"Test","lastName":"User","email":"test@email.pl"}
+
+### Scenariusz 3: POST z loginem pracownika — powinno dzialac
+POST http://localhost:8080/applicants
+Authorization: Basic pracownik haslo123
+Content-Type: application/json
+
+{"firstName":"Test","lastName":"User","email":"test@email.pl"}
+
+### Scenariusz 4: Actuator beans bez logowania — odrzuci
+GET http://localhost:8080/actuator/beans
+
+### Scenariusz 5: Actuator beans jako pracownik — brak uprawnien
+GET http://localhost:8080/actuator/beans
+Authorization: Basic pracownik haslo123
+
+
+###Mini-projekt
+### 4.1 Umow wizyte (wymaga logowania)
+POST http://localhost:8080/applicants/1/visits
+Authorization: Basic pracownik haslo123
+Content-Type: application/json
+
+{
+  "visitDate": "2026-09-01",
+  "purpose": "Dostarczenie dokumentow do wniosku o meldunek",
+  "status": "SCHEDULED"
+}
+
+### 4.2 Umow wizyte z data w przeszlosci — walidacja
+POST http://localhost:8080/applicants/1/visits
+Authorization: Basic pracownik haslo123
+Content-Type: application/json
+
+{
+  "visitDate": "2020-01-01",
+  "purpose": "Test",
+  "status": "SCHEDULED"
+}
+
+### 4.3 Lista wizyt (publiczny)
+GET http://localhost:8080/visits
+
+
+###Umow wizyte bez logowania
+POST http://localhost:8080/applicants/1/visits
+Content-Type: application/json
+
+{
+  "visitDate": "2026-09-01",
+  "purpose": "Test",
+  "status": "SCHEDULED"
+}
